@@ -1,15 +1,14 @@
 import express from "express";
 import { gamesController } from "../controllers";
+import { gameValidations } from "../validators";
 
 export const router = express.Router();
 
-// Rutas adicionales (deben ir antes de las rutas con parámetros dinámicos)
-router.get("/user/:userId", gamesController.getByUserId);
+router.get("/user/:userId", gameValidations.userId, gamesController.getByUserId);
 router.get("/genre/:genre", gamesController.getByGenre);
 
-// Rutas CRUD básicas
 router.get("/", gamesController.getAll);
-router.get("/:id", gamesController.getOne);
-router.post("/", gamesController.create);
-router.put("/:id", gamesController.update);
-router.delete("/:id", gamesController.delete);
+router.get("/:id", gameValidations.id, gamesController.getOne);
+router.post("/", gameValidations.create, gamesController.create);
+router.put("/:id", gameValidations.id, gameValidations.update, gamesController.update);
+router.delete("/:id", gameValidations.id, gamesController.delete);

@@ -1,14 +1,15 @@
 import express, { Request, Response } from "express";
 import { userController } from "../controllers";
+import { userValidations } from "../validators";
 
 export const router = express.Router();
 
 router.get("/", userController.getAll);
 
-router.get("/:id", userController.getOne);
+router.get("/:id", userValidations.id, userController.getOne);
 
-router.put("/:id", userController.update);
+router.put("/:id", userValidations.id, userValidations.update, userController.update);
 
-router.post("/", userController.create);
+router.post("/", userValidations.create, userController.create);
 
-router.delete("/:id", userController.delete);
+router.delete("/:id", userValidations.id, userController.delete);
