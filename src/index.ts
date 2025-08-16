@@ -1,7 +1,7 @@
 import express, { Express, Request, Response } from 'express';
 
 import { db } from './config/connectionDB';
-import { userRouter } from './routes';
+import { userRouter, gamesRouter } from './routes';
 
 const app: Express = express();
 
@@ -13,6 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/users", userRouter.router);
+app.use("/api/games", gamesRouter.router);
 
 app.get("/", (req: Request, res: Response) => {
     res.send('Hola Mundo');

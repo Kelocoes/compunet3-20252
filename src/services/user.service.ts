@@ -44,6 +44,15 @@ class UserService {
         return UserModel.findById(id);
     }
 
+    public async delete(id: string): Promise<boolean> {
+        try {
+            const result = await UserModel.findByIdAndUpdate(id, { deletedAt: new Date() })
+            return result !== null;
+        } catch (error) {
+            throw error;
+        }
+    }
+
 }
 
 export const userService = new UserService();

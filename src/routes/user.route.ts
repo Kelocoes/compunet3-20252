@@ -10,3 +10,5 @@ router.get("/:id", userController.getOne);
 router.put("/:id", userController.update);
 
 router.post("/", userController.create);
+
+router.delete("/:id", userController.delete);
