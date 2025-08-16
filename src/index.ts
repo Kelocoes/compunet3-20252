@@ -3,6 +3,7 @@ import express, { Express, Request, Response } from 'express';
 import { db } from './config/connectionDB';
 import { userRouter, gamesRouter } from './routes';
 import { logger } from './middlewares';
+import { errorHandler } from './middlewares/errorHandler';
 
 const app: Express = express();
 
@@ -21,6 +22,8 @@ app.use("/api/games", gamesRouter.router);
 app.get("/", (req: Request, res: Response) => {
     res.send('Hola Mundo');
 });
+
+app.use(errorHandler);
 
 db.then(() =>
     app.listen(port, () => {

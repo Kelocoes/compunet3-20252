@@ -2,18 +2,18 @@ import { Request, Response } from "express";
 import { UserDocument } from "../models";
 import { userService } from "../services";
 import { UserInput, UserInputUpdate } from "../interfaces";
+import { AppError } from "../middlewares";
 
 class UserController {
-    public async create(req: Request, res: Response) {
+    public async create(req: Request, res: Response, next: Function) {
         try {
             const newUser: UserDocument = await userService.create(req.body as UserInput);
             res.status(201).json(newUser);
         } catch (error) {
             if (error instanceof ReferenceError) {
-                res.status(400).json({ message: "User already exists" });
-                return;
+                return next(new AppError("User already exists", 400));
             }
-            res.status(500).json(error);
+            next(error);
         }
     }
 
