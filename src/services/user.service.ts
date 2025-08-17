@@ -18,8 +18,8 @@ class UserService {
         return UserModel.create(userInput);
     }
 
-    public findByEmail(email: string): Promise<UserDocument | null> {
-        return UserModel.findOne({ email });
+    public findByEmail(email: string, password: boolean = false): Promise<UserDocument | null> {
+        return UserModel.findOne({ email }, { password });
     }
 
     public async update(id: string, userInput: UserInputUpdate): Promise<UserDocument | null> {

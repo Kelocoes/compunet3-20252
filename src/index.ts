@@ -1,7 +1,7 @@
 import express, { Express, Request, Response } from 'express';
 
 import { db } from './config/connectionDB';
-import { userRouter, gamesRouter } from './routes';
+import { userRouter, gamesRouter, authRouter } from './routes';
 import { logger } from './middlewares';
 import { errorHandler } from './middlewares/errorHandler';
 
@@ -18,6 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/users", userRouter.router);
 app.use("/api/games", gamesRouter.router);
+app.use("/api/auth", authRouter.router);
 
 app.get("/", (req: Request, res: Response) => {
     res.send('Hola Mundo');

@@ -1,10 +1,11 @@
 import express, { Request, Response } from "express";
 import { userController } from "../controllers";
 import { userValidations } from "../validators";
+import { authMiddleware } from "../middlewares";
 
 export const router = express.Router();
 
-router.get("/", userController.getAll);
+router.get("/", authMiddleware, userController.getAll);
 
 router.get("/:id", userValidations.id, userController.getOne);
 
