@@ -6,16 +6,17 @@ import { UserDocument, UserModel } from "../models";
 class UserService {
     public async create(userInput: UserInput): Promise<UserDocument> {
 
-        process.loadEnvFile();
-
         const userExists: UserDocument | null = await this.findByEmail(userInput.email);
         if (userExists !== null) {
             throw new ReferenceError("User already exists");
         }
-        if (userInput.password) {
-            userInput.password = await bcrypt.hash(userInput.password, 10);
+
+        const newUser = { ...userInput }; // Create a new object to avoid modifying the original userInput
+        if (newUser.password) {
+            newUser.password = await bcrypt.hash(newUser.password, 10);
         }
-        return UserModel.create(userInput);
+
+        return UserModel.create(newUser);
     }
 
     public findByEmail(email: string, password: boolean = false): Promise<UserDocument | null> {
