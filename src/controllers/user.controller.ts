@@ -19,6 +19,7 @@ class UserController {
 
     public async getAll(req: Request, res: Response) {
         try {
+            console.log("Creating user with data:", req.user);
             const users: UserDocument[] = await userService.getAll();
             res.json(users);
         } catch (error) {

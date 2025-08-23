@@ -3,7 +3,7 @@ import express, { Express, Request, Response } from 'express';
 import { db } from './config/connectionDB';
 import { userRouter, gamesRouter, authRouter } from './routes';
 import { logger } from './middlewares';
-import { errorHandler } from './middlewares/errorHandler';
+import { errorHandler } from './middlewares';
 
 const app: Express = express();
 

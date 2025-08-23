@@ -30,7 +30,7 @@ class AuthService {
             id: user.id,
             roles: user.roles
         };
-        return jwt.sign(payload, process.env.JWT_SECRET || 'defaultSecret', { expiresIn: '10m' });
+        return jwt.sign(payload, process.env.JWT_SECRET || 'defaultSecret', { expiresIn: '1h' });
     }
 
 }

@@ -19,7 +19,7 @@ class UserService {
     }
 
     public findByEmail(email: string, password: boolean = false): Promise<UserDocument | null> {
-        return UserModel.findOne({ email }, { password });
+        return UserModel.findOne({ email }).select(password ? '+password' : '-password');
     }
 
     public async update(id: string, userInput: UserInputUpdate): Promise<UserDocument | null> {
@@ -37,7 +37,7 @@ class UserService {
     }
 
     public getAll(): Promise<UserDocument[]> {
-        return UserModel.find();
+        return UserModel.find({ deletedAt: null });
     }
 
     public getById(id: string): Promise<UserDocument | null> {
