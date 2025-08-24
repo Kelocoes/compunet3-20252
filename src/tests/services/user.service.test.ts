@@ -38,6 +38,13 @@ describe("UserService", () => { // Describe permite agrupar las pruebas relacion
                 createdAt: new Date(),
                 updatedAt: new Date(),
                 roles: [UserRole.USER],
+                toObject: jest.fn().mockReturnValue({
+                    ...mockUserInput,
+                    _id: "12345",
+                    roles: [UserRole.USER],
+                    createdAt: new Date(),
+                    updatedAt: new Date(),
+                })
             };
 
             // Mock de findByEmail para devolver null (usuario no existe)
@@ -56,7 +63,7 @@ describe("UserService", () => { // Describe permite agrupar las pruebas relacion
                 password: mockHashedPassword,
             });
 
-            expect(result).toEqual(mockCreatedUser);
+            expect(result).toEqual((mockCreatedUser.toObject as jest.Mock)());
         });
 
         it("should throw an error if the user already exists", async () => {
