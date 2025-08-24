@@ -4,10 +4,11 @@ import { db } from './config/connectionDB';
 import { userRouter, gamesRouter, authRouter } from './routes';
 import { logger } from './middlewares';
 import { errorHandler } from './middlewares';
+import dotenv from "dotenv";
 
 const app: Express = express();
 
-process.loadEnvFile();
+dotenv.config();
 
 const port = process.env.PORT || 3000;
 
