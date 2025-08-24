@@ -16,7 +16,13 @@ class UserService {
             newUser.password = await bcrypt.hash(newUser.password, 10);
         }
 
-        return UserModel.create(newUser);
+        const createdUser = await UserModel.create(newUser);
+
+        // Elimina el campo `password` del objeto retornado
+        const userWithoutPassword = createdUser.toObject();
+        delete (userWithoutPassword as { password?: string }).password;
+
+        return userWithoutPassword;
     }
 
     public findByEmail(email: string, password: boolean = false): Promise<UserDocument | null> {

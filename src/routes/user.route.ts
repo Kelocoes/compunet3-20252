@@ -7,7 +7,7 @@ import { UserRole } from "../models";
 
 export const router = express.Router();
 
-router.get("/", authMiddleware, checkRole(UserRole.ADMIN), userController.getAll);
+router.get("/", authMiddleware, checkRole(UserRole.USER), userController.getAll);
 
 router.get("/:id", userValidations.id, userController.getOne);
 
