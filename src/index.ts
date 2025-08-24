@@ -5,8 +5,11 @@ import { userRouter, gamesRouter, authRouter } from './routes';
 import { logger } from './middlewares';
 import { errorHandler } from './middlewares';
 import dotenv from "dotenv";
+import cors from 'cors';
 
 const app: Express = express();
+
+app.use(cors());
 
 dotenv.config();
 
