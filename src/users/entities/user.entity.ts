@@ -1,4 +1,4 @@
-import { Role } from '../../roles/entities/role.entity';
+import { Role } from '../../auth/entities/role.entity';
 import {
     Entity,
     PrimaryGeneratedColumn,

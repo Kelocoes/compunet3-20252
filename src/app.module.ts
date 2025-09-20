@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UsersModule } from './users/users.module';
-import { RolesModule } from './roles/roles.module';
+import { AuthModule } from './auth/auth.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
@@ -17,7 +17,7 @@ type SupportedDbTypes =
     imports: [
         ConfigModule.forRoot({ isGlobal: true }), // Global allows access
         UsersModule,
-        RolesModule,
+        AuthModule,
         TypeOrmModule.forRootAsync({
             imports: [ConfigModule],
             inject: [ConfigService],
