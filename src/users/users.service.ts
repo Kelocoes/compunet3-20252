@@ -9,6 +9,7 @@ import {
     RoleNotFoundException,
     UserNotFoundException,
 } from '../common/exceptions';
+import { AppLogger } from '../common/logger/logger.service';
 
 @Injectable()
 export class UsersService {
@@ -16,14 +17,21 @@ export class UsersService {
         @InjectRepository(User)
         private readonly userRepository: Repository<User>,
         private rolesService: RolesService,
+        private readonly logger: AppLogger,
     ) {}
 
     async create(createUserDto: CreateUserDto) {
+        this.logger.debug(`Creating user with email: ${createUserDto.email}`);
         const role = await this.rolesService.findByName(createUserDto.roleName);
         if (!role) {
+            this.logger.debug(
+                `Role not found: ${createUserDto.roleName} while creating user with email: ${createUserDto.email}`,
+            );
             throw new RoleNotFoundException(createUserDto.roleName);
         }
-
+        this.logger.debug(
+            `Role found: ${role.name} for user with email: ${createUserDto.email}`,
+        );
         const newUser = this.userRepository.create({
             ...createUserDto,
             role,

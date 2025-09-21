@@ -5,6 +5,7 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { LoggerModule } from './common/logger/logger.module';
 
 type SupportedDbTypes =
     | 'mysql'
@@ -33,6 +34,7 @@ type SupportedDbTypes =
                     configService.get<boolean>('DB_SYNCHRONIZE') ?? false,
             }),
         }),
+        LoggerModule,
     ],
     controllers: [AppController],
     providers: [AppService],

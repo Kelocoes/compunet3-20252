@@ -10,14 +10,17 @@ import {
     Header,
     Headers,
     ParseIntPipe,
+    UseInterceptors,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { HttpCode, HttpStatus } from '@nestjs/common';
 import { GetUserParams } from './dto/getUserParams.dto';
+import { CryptoInterceptor } from '../common/interceptors/crypto.interceptor';
 
 @Controller('users')
+@UseInterceptors(CryptoInterceptor)
 export class UsersController {
     constructor(private readonly usersService: UsersService) {}
 
