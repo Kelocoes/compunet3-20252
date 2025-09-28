@@ -44,7 +44,14 @@ export class UsersService {
     }
 
     async findOne(id: number) {
-        const user = await this.userRepository.findOne({ where: { id } });
+        const user = await this.userRepository.findOne({
+            where: { id },
+            relations: [
+                'role',
+                'role.rolePermissions',
+                'role.rolePermissions.permission',
+            ],
+        });
         if (!user) {
             throw new UserNotFoundException(id);
         }
@@ -65,5 +72,16 @@ export class UsersService {
         if (!result.affected || result.affected === 0) {
             throw new UserNotFoundException(id);
         }
+    }
+
+    async findByEmail(email: string): Promise<User | null> {
+        return this.userRepository.findOne({
+            where: { email },
+            relations: [
+                'role',
+                'role.rolePermissions',
+                'role.rolePermissions.permission',
+            ],
+        });
     }
 }

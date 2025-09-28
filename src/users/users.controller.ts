@@ -11,6 +11,7 @@ import {
     Headers,
     ParseIntPipe,
     UseInterceptors,
+    UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -18,19 +19,25 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { HttpCode, HttpStatus } from '@nestjs/common';
 import { GetUserParams } from './dto/getUserParams.dto';
 import { CryptoInterceptor } from '../common/interceptors/crypto.interceptor';
+import { AuthGuard } from '@nestjs/passport';
+import { PermissionsGuard } from '../common/guards/permission.guard';
+import { Permissions } from '../common/decorators/permission.decorator';
 
+@UseGuards(AuthGuard('jwt'), PermissionsGuard)
 @Controller('users')
-@UseInterceptors(CryptoInterceptor)
+// @UseInterceptors(CryptoInterceptor)
 export class UsersController {
     constructor(private readonly usersService: UsersService) {}
 
     @Post()
+    @Permissions('user_create')
     @HttpCode(HttpStatus.CREATED)
     create(@Body() createUserDto: CreateUserDto) {
         return this.usersService.create(createUserDto);
     }
 
     @Get()
+    @Permissions('user_read')
     @HttpCode(HttpStatus.OK)
     findAll() {
         return this.usersService.findAll();
