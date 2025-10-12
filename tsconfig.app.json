@@ -1,0 +1,68 @@
+{
+    "compilerOptions": {
+        // Guarda información de compilación incremental en este archivo temporal
+        "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+
+        // Define la versión de JavaScript que se generará (ES2022)
+        "target": "ES2022",
+
+        // Usa la sintaxis moderna para campos de clase
+        "useDefineForClassFields": true,
+
+        // Incluye las librerías estándar de ES2022 y APIs del navegador
+        // Esto permite usar características modernas de JavaScript y el DOM
+        "lib": ["ES2022", "DOM", "DOM.Iterable"],
+
+        // Usa el sistema de módulos ESNext (import/export)
+        // ESNext significa que se usará la última versión disponible
+        "module": "ESNext",
+
+        // Omite la comprobación de tipos en archivos de librerías externas
+        // Esto acelera la compilación y evita errores innecesarios
+        "skipLibCheck": true,
+
+        /* Modo para empaquetadores (bundlers) */
+
+        // Resuelve módulos como lo haría un empaquetador moderno
+        "moduleResolution": "bundler",
+
+        // Permite importar archivos .ts directamente
+        // Esto te evita tener que usar extensiones .js en las importaciones
+        "allowImportingTsExtensions": true,
+
+        // Mantiene la sintaxis de los módulos tal cual (sin transformarla)
+        "verbatimModuleSyntax": true,
+
+        // Fuerza la detección de módulos en todos los archivos
+        "moduleDetection": "force",
+
+        // No genera archivos de salida al compilar
+        "noEmit": true,
+
+        // Soporte para JSX con la sintaxis de React moderna
+        "jsx": "react-jsx",
+
+        /* Reglas de calidad (Linting) */
+
+        // Activa comprobaciones estrictas de tipos
+        // Esto ayuda a detectar errores potenciales en el código
+        "strict": true,
+
+        // Advierte si hay variables locales no usadas
+        "noUnusedLocals": true,
+
+        // Advierte si hay parámetros de función no usados
+        "noUnusedParameters": true,
+
+        // Solo permite sintaxis que puede ser eliminada sin afectar el resultado
+        "erasableSyntaxOnly": true,
+
+        // Previene errores por casos no controlados en switch
+        "noFallthroughCasesInSwitch": true,
+
+        // Advierte sobre importaciones con efectos secundarios no comprobados
+        "noUncheckedSideEffectImports": true
+    },
+    // Incluye todos los archivos dentro de la carpeta src
+    "include": ["src"]
+}

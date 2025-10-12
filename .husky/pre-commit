@@ -1,0 +1,8 @@
+echo "🔍 Comprobando formateo usando prettier..."
+prettier --check .
+
+echo "🔧 Aplicando fixes automáticos de ESLint..."
+npx eslint src/ --ext .ts,.tsx,.jsx --report-unused-disable-directives --fix
+
+echo "✅ Verificando código..."
+npx eslint src/ --ext .ts,.tsx,.jsx --report-unused-disable-directives

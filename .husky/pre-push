@@ -1,0 +1,3 @@
+
+echo "🏗️ Building project..."
+npx tsc -b && vite build
