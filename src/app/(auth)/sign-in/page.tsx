@@ -1,21 +1,44 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useRef } from "react";
 
 export default function SignInPage() {
     const formRef = useRef<HTMLFormElement>(null);
+    const router = useRouter();
 
-    const handleSubmit = (event: React.FormEvent) => {
+    const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
-        // Handle form submission logic here
-        const formData = new FormData(formRef.current!);
-        const email = formData.get("email");
-        const password = formData.get("password");
-        console.log("Email:", email);
-        console.log("Password:", password);
+
+        try {
+            const formData = new FormData(formRef.current!);
+            const email = formData.get("email");
+            const password = formData.get("password");
+            console.log("Email:", email);
+            console.log("Password:", password);
+
+            const response = await fetch("/api/auth", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ email, password }),
+            });
+
+            if (!response.ok) {
+                throw new Error("Login failed");
+            }
+
+            const data = await response.json();
+            console.log("Response:", data);
+            localStorage.setItem("token", data.token);
+            router.push("/dashboard");
+        } catch (error) {
+            console.error("Error during sign-in:", error);
+        }
     };
-    
+
     return (
         <div id="sign-in-container" className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8 w-86">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">

@@ -11,3 +11,7 @@ You must implement the following features:
   - Create a video player from scratch
   - Create an Alert component
 - Create a page to showcase the components library
+
+
+- Add the profile page with/without mocked data
+- Enhance styles across the application for better UX/UI
