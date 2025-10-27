@@ -48,7 +48,7 @@ export default function ComponentsPage() {
                     <div className="h-10 w-10 bg-red-700 text-white p-4 rounded-full flex items-center justify-center text-sm border-2">03</div>
                 </ZIndex>
             </GridCell>
-            <GridCell title="Text-Display">
+            <GridCell title="o.o">
                 <h1>On your own!</h1>
             </GridCell>
         </div>
