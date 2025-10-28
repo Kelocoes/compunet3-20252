@@ -31,7 +31,7 @@ export default function ComponentsPage() {
     ];
     return (
         <div id="components-sandbox"
-            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 p-4 h-fit w-[90vw] overflow-auto text-black">
+            className="">
             {components.map(({ title, component }, index) => (
                 <GridCell key={index} title={title} >
                     {component}
