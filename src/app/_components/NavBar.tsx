@@ -15,6 +15,7 @@ export default function NavBar() {
                         <li><Link href="/dashboard/users">Profile</Link></li>
                         <li><Link href="/dashboard/context">Context</Link></li>
                         <li><Link href="/dashboard/use-context">UseContext</Link></li>
+                        <li><Link href="/dashboard/redux">Redux</Link></li>
                     </ul>
                 </div>
             </div>
