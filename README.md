@@ -1,98 +1,181 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Proyecto NestJS con TypeORM
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Este proyecto utiliza NestJS con TypeORM y PostgreSQL para gestionar autores y posts.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Estructura del Proyecto
 
-## Description
+```
+src/
+├── authors/              # Módulo de autores
+│   ├── entities/
+│   │   └── author.entity.ts
+│   ├── authors.service.ts
+│   └── authors.module.ts
+├── posts/                # Módulo de posts
+│   ├── entities/
+│   │   └── post.entity.ts
+│   ├── posts.service.ts
+│   └── posts.module.ts
+└── app.module.ts
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Project setup
-
-```bash
-$ npm install
+db/
+└── scripts/
+    ├── script.sql        # Script SQL con datos de prueba
+    └── insert.sh         # Script para insertar datos
 ```
 
-## Compile and run the project
+## Entidades
+
+### Author (Autor)
+
+- `id`: ID único
+- `firstName`: Nombre
+- `lastName`: Apellido
+- `email`: Correo electrónico (único)
+- `bio`: Biografía
+- `country`: País
+- `birthDate`: Fecha de nacimiento
+- `isActive`: Estado activo
+- Relación: Un autor puede tener múltiples posts
+
+### Post
+
+- `id`: ID único
+- `title`: Título del post
+- `content`: Contenido
+- `category`: Categoría
+- `views`: Número de vistas
+- `likes`: Número de likes
+- `isPublished`: Estado de publicación
+- `publishedDate`: Fecha de publicación
+- `tags`: Etiquetas (array)
+- `authorId`: ID del autor
+- Relación: Cada post pertenece a un autor
+
+## Instalación
+
+1. Instalar dependencias:
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+npm install
 ```
 
-## Run tests
+2. Copiar el archivo de configuración:
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+cp .env.example .env
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+3. Iniciar la base de datos con Docker:
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+docker-compose up -d
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+4. Insertar datos de prueba:
 
-## Resources
+```bash
+cd db/scripts
+bash insert.sh
+```
 
-Check out a few resources that may come in handy when working with NestJS:
+## Uso
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+### Iniciar el servidor en modo desarrollo:
 
-## Support
+```bash
+npm run start:dev
+```
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### Compilar el proyecto:
 
-## Stay in touch
+```bash
+npm run build
+```
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### Ejecutar en producción:
 
-## License
+```bash
+npm run start:prod
+```
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+## Servicios Disponibles
+
+### AuthorsService
+
+- `findAll()`: Obtener todos los autores
+- `findOne(id)`: Obtener un autor por ID
+- `findByEmail(email)`: Buscar autor por email
+- `create(authorData)`: Crear un nuevo autor
+- `update(id, authorData)`: Actualizar un autor
+- `remove(id)`: Eliminar un autor
+- `getActiveAuthors()`: Obtener autores activos
+- `getAuthorsByCountry(country)`: Filtrar por país
+
+### PostsService
+
+- `findAll()`: Obtener todos los posts
+- `findOne(id)`: Obtener un post por ID
+- `findByAuthor(authorId)`: Posts de un autor
+- `findByCategory(category)`: Filtrar por categoría
+- `create(postData)`: Crear un nuevo post
+- `update(id, postData)`: Actualizar un post
+- `remove(id)`: Eliminar un post
+- `getPublishedPosts()`: Obtener posts publicados
+- `incrementViews(id)`: Incrementar vistas
+- `incrementLikes(id)`: Incrementar likes
+- `searchByTag(tag)`: Buscar por etiqueta
+
+## Base de Datos
+
+La base de datos PostgreSQL contiene:
+
+- **50 autores** de diferentes países con biografías completas
+- **50 posts** con diversos temas relacionados con tecnología
+
+### Conectarse a la base de datos:
+
+```bash
+docker exec -it postgres-db psql -U postgres -d mydatabase
+```
+
+
+## Configuración
+
+El archivo `.env` contiene las siguientes variables:
+
+```env
+DB_HOST=localhost
+DB_PORT=5433
+DB_USERNAME=postgres
+DB_PASSWORD=postgres
+DB_NAME=mydatabase
+NODE_ENV=development
+PORT=3000
+```
+
+## Scripts de Base de Datos
+
+### insert.sh
+
+Script bash que:
+
+1. Verifica que Docker esté corriendo
+2. Verifica que el contenedor PostgreSQL esté activo
+3. Copia el script SQL al contenedor
+4. Ejecuta el script para insertar datos
+5. Muestra estadísticas de registros insertados
+
+**Uso:**
+
+```bash
+cd db/scripts
+bash insert.sh
+```
+
+## Notas
+
+- El proyecto usa TypeORM con sincronización automática en desarrollo
+- Las relaciones entre entidades están configuradas con cascade delete
+- Los timestamps (createdAt, updatedAt) se manejan automáticamente
+- Las entidades incluyen validaciones y restricciones de base de datos
