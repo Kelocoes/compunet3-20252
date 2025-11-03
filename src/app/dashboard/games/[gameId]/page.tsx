@@ -1,6 +1,8 @@
 import CommentsCard from "@/app/_components/CommentsCard";
 
-export default async function GameDetailsPage({ params }: { params: { gameId: string } }) {
+export const dynamic = 'force-dynamic';
+
+export default async function GameDetailsPage({ params }: { params: Promise<{ gameId: string }> }) {
     const { gameId } = await params;
     const data = await fetch(`http://localhost:3000/api/games/${gameId}`);
     const game = await data.json();

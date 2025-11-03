@@ -1,4 +1,4 @@
-export async function GET(request: Request, { params }: { params: { gameId: string } }) {
+export async function GET(request: Request, { params }: { params: Promise<{ gameId: string }> }) {
     const { gameId } = await params;
     const games = [
         {

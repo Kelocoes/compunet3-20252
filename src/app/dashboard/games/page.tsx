@@ -1,5 +1,7 @@
 import GameCard from "@/app/_components/GameCard";
 
+export const dynamic = 'force-dynamic';
+
 export default async function GamesPage() {
     const data = await fetch('http://localhost:3000/api/games')
     const gamesList = await data.json();
