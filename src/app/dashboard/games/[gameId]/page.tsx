@@ -4,9 +4,9 @@ export const dynamic = 'force-dynamic';
 
 export default async function GameDetailsPage({ params }: { params: Promise<{ gameId: string }> }) {
     const { gameId } = await params;
-    const data = await fetch(`http://localhost:3000/api/games/${gameId}`);
+    const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/games/${gameId}`);
     const game = await data.json();
-    const commentsData = await fetch(`http://localhost:3000/api/games/${gameId}/comments`);
+    const commentsData = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/games/${gameId}/comments`);
     const comments = await commentsData.json();
     return (
         <div className="hero bg-base-200 min-h-screen text-black flex flex-col items-center justify-start p-8 max-w-4xl">
